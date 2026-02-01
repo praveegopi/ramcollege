@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Holy Faith College</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #006a4e;
+            --primary-dark: #004d38;
+            --accent: #e31e24;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; line-height: 1.7; color: #1a1a1a; }
+        
+        /* SIDEBAR STYLES */
+        .side-widget {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .widget-item {
+            background: var(--primary);
+            color: white;
+            padding: 20px 10px;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 4px 0 0 4px;
+            box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            width: 45px;
+        }
+        .widget-item:hover { width: 60px; background: var(--primary-dark); }
+        .widget-item.red { background: var(--accent); }
+        .widget-item.red:hover { background: #c0181d; }
+        .widget-item i { font-size: 1.2rem; margin-bottom: 10px; writing-mode: horizontal-tb; }
+        @media(max-width: 1200px) { .side-widget { display: none; } }
+        
+        /* CONTENT STYLES */
+        .content-wrapper { padding: 40px 5%; max-width: 1200px; margin: 0 auto; }
+    
+/* HEADER STANDARDIZATION - Added to fix header consistency */
+.utility-bar {
+    background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 12px 5%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #dee2e6;
+}
+.utility-bar a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.utility-bar a:hover { color: #006a4e; transform: translateY(-2px); }
+
+header {
+    background: rgba(255,255,255,0.98);
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+.logo:hover { transform: scale(1.02); }
+.logo img {
+    height: 65px;
+    width: auto;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+.logo-text {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #006a4e;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+.logo-text span {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #555;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+nav {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+nav a {
+    text-decoration: none;
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 0.95rem;
+    position: relative;
+    padding: 8px 0;
+    transition: color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #006a4e;
+    transition: width 0.3s;
+    border-radius: 2px;
+}
+nav a:hover { color: #006a4e; }
+nav a:hover::after { width: 100%; }
+.btn-apply-header {
+    background: #e31e24;
+    color: white !important;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 8px 20px rgba(227,30,36,0.3);
+    transition: all 0.3s !important;
+}
+.btn-apply-header:hover {
+    background: #c0181d;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 30px rgba(227,30,36,0.4);
+}
+.btn-apply-header::after { display: none !important; }
+.mobile-menu-btn {
+    display: none;
+    background: #006a4e;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+@media (max-width: 1200px) {
+    .mobile-menu-btn { display: block; }
+    nav { 
+        display: none; 
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+    nav.active { display: flex; }
+    nav a { width: 100%; padding: 10px 0; border-bottom: 1px solid #eee; }
+    .btn-apply-header { width: 100%; text-align: center; margin-top: 10px; }
+    header { flex-wrap: wrap; }
+}
+/* END HEADER STANDARDIZATION */
+
+
+        /* FORCE HIDE ANY TOP BAR ABOVE HEADER */
+        html body > *:first-child:not(.side-widget):not(style):not(script):not(link):not(meta):not(title) {
+            position: relative !important;
+        }
+        
+        /* Hide any fixed/sticky bar at top that's not our sidebar */
+        body > div[style*="position: fixed"]:not(.side-widget):not(#corner-credit),
+        body > div[style*="position:sticky"]:not(.side-widget):not(#corner-credit),
+        body > div[class*="top-bar"]:not(.utility-bar),
+        body > div[class*="toolbar"]:not(.utility-bar),
+        body > div[class*="phone-bar"],
+        body > div[class*="contact-bar"] {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+            opacity: 0 !important;
+        }
+        
+        /* Ensure our utility bar is first visible element after sidebar */
+        body > .utility-bar {
+            margin-top: 0 !important;
+            top: 0 !important;
+        }
+    
+</style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="side-widget">
+        <a href="admission.html" class="widget-item red"><i class="fas fa-edit"></i> Admission</a>
+        <a href="chat.html" class="widget-item"><i class="fas fa-comments"></i> Student Chat</a>
+        <a href="contact.html" class="widget-item"><i class="fas fa-phone-alt"></i> Contact Us</a>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content-wrapper">
+<!-- PAYMENT SECTION - Add this to your admission.html -->
+<section class="payment-section" style="padding: 60px 5%; background: #f8f9fa;">
+<div class="container" style="max-width: 800px; margin: 0 auto;">
+<h2 style="text-align: center; color: #006a4e; margin-bottom: 30px;">
+<i class="fas fa-credit-card"></i> Secure Fee Payment
+        </h2>
+<!-- Fee Breakdown -->
+<div class="fee-breakdown" style="background: white; padding: 30px; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+<h3 style="margin-bottom: 20px; color: #333;">Fee Breakdown</h3>
+<table style="width: 100%; border-collapse: collapse;">
+<tr style="border-bottom: 1px solid #eee;">
+<td style="padding: 12px 0;">B.Sc Nursing Tuition Fee (1st Year)</td>
+<td style="text-align: right; font-weight: 600;">₹55,000</td>
+</tr>
+<tr style="border-bottom: 1px solid #eee;">
+<td style="padding: 12px 0;">Registration Fee</td>
+<td style="text-align: right; font-weight: 600;">₹500</td>
+</tr>
+<tr style="border-bottom: 1px solid #eee;">
+<td style="padding: 12px 0;">Prospectus &amp; ID Card</td>
+<td style="text-align: right; font-weight: 600;">₹200</td>
+</tr>
+<tr style="background: #e8f5e9; font-size: 1.2rem;">
+<td style="padding: 15px 0; font-weight: 700;">Total Amount</td>
+<td style="text-align: right; font-weight: 700; color: #006a4e;">₹55,700</td>
+</tr>
+</table>
+</div>
+<!-- Terms Checkboxes (REQUIRED by Razorpay) -->
+<div class="terms-section" style="background: white; padding: 25px; border-radius: 15px; margin-bottom: 30px;">
+<h4 style="margin-bottom: 20px; color: #333;"><i class="fas fa-check-double"></i> Please Confirm</h4>
+<label style="display: block; margin-bottom: 15px; cursor: pointer;">
+<input id="termsCheck" onchange="checkAllChecked()" style="margin-right: 10px;" type="checkbox"/>
+                I have read and agree to the <a href="terms-conditions.html" style="color: #006a4e;" target="_blank">Terms &amp; Conditions</a>
+</label>
+<label style="display: block; margin-bottom: 15px; cursor: pointer;">
+<input id="refundCheck" onchange="checkAllChecked()" style="margin-right: 10px;" type="checkbox"/>
+                I understand the <a href="refund-policy.html" style="color: #006a4e;" target="_blank">Refund Policy</a>
+</label>
+<label style="display: block; margin-bottom: 15px; cursor: pointer;">
+<input id="privacyCheck" onchange="checkAllChecked()" style="margin-right: 10px;" type="checkbox"/>
+                I agree to the <a href="privacy-policy.html" style="color: #006a4e;" target="_blank">Privacy Policy</a>
+</label>
+</div>
+<!-- Pay Button -->
+<button disabled="" id="payBtn" onclick="openRazorpay()" style="width: 100%; padding: 18px; background: #ccc; color: white; border: none; border-radius: 10px; font-size: 1.2rem; font-weight: 700; cursor: not-allowed; transition: all 0.3s;">
+<i class="fas fa-lock"></i> Pay ₹55,700 Securely
+        </button>
+<!-- Razorpay Branding -->
+<p style="text-align: center; margin-top: 20px; color: #888; font-size: 0.9rem;">
+<i class="fas fa-shield-alt" style="color: #28a745;"></i> 
+            Secured by <strong>Razorpay</strong> | 
+            <i class="fas fa-undo"></i> Easy Refunds
+        </p>
+<!-- Support -->
+<div style="text-align: center; margin-top: 30px; padding: 20px; background: #e3f2fd; border-radius: 10px;">
+<p style="color: #555; margin-bottom: 10px;">Facing issues with payment?</p>
+<a href="tel:8125444777" style="color: #006a4e; text-decoration: none; margin: 0 10px;"><i class="fas fa-phone"></i> 8125-444-777</a>
+<a href="https://wa.me/9133113532" style="color: #006a4e; text-decoration: none; margin: 0 10px;"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+</div>
+</div>
+</section>
+<!-- Razorpay Integration Script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+function checkAllChecked() {
+    const terms = document.getElementById('termsCheck').checked;
+    const refund = document.getElementById('refundCheck').checked;
+    const privacy = document.getElementById('privacyCheck').checked;
+    const payBtn = document.getElementById('payBtn');
+    
+    if(terms && refund && privacy) {
+        payBtn.disabled = false;
+        payBtn.style.background = '#006a4e';
+        payBtn.style.cursor = 'pointer';
+        payBtn.innerHTML = '<i class="fas fa-lock"></i> Pay ₹55,700 Securely';
+    } else {
+        payBtn.disabled = true;
+        payBtn.style.background = '#ccc';
+        payBtn.style.cursor = 'not-allowed';
+        payBtn.innerHTML = '<i class="fas fa-lock"></i> Please Accept All Terms';
+    }
+}
+
+function openRazorpay() {
+    const options = {
+        "key": "rzp_test_YOUR_KEY_HERE", // Replace with your Razorpay Key ID
+        "amount": "5570000", // ₹55,700 in paise
+        "currency": "INR",
+        "name": "Holy Faith College",
+        "description": "B.Sc Nursing Admission Fee 2026",
+        "image": "https://holyfaith.edu.in/logo.png",
+        "prefill": {
+            "name": document.getElementById('studentName')?.value || "",
+            "email": document.getElementById('studentEmail')?.value || "",
+            "contact": document.getElementById('studentPhone')?.value || ""
+        },
+        "notes": {
+            "admission_id": "HFC2026XXXX",
+            "course": "B.Sc Nursing"
+        },
+        "theme": {
+            "color": "#006a4e"
+        },
+        "handler": function (response){
+            // Payment successful
+            window.location.href = 'payment-success.html?txnId=' + response.razorpay_payment_id + '&amount=₹55,700';
+        },
+        "modal": {
+            "ondismiss": function(){
+                console.log('Payment window closed');
+            }
+        }
+    };
+    
+    const rzp = new Razorpay(options);
+    rzp.on('payment.failed', function (response){
+        window.location.href = 'payment-failed.html?error=' + response.error.code;
+    });
+    rzp.open();
+}
+</script>
+    </div>
+
+</body>
+</html>

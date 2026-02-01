@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nursing College in NAD Junction Visakhapatnam | Holy Faith College</title>
+    <meta name="description" content="Best Nursing College near NAD Junction Visakhapatnam. 20 minutes from NAD Junction. BSc Nursing, GNM, BPT courses with excellent connectivity.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #006a4e;
+            --primary-dark: #004d38;
+            --accent: #e31e24;
+            --text-dark: #1a1a1a;
+            --text-gray: #555;
+            --light-bg: #f8f9fa;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text-dark); line-height: 1.7; }
+        
+        .utility-bar {
+            background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 12px 5%;
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            font-size: 0.95rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .utility-bar a { color: var(--text-gray); text-decoration: none; font-weight: 500; }
+        
+        header {
+            background: rgba(255,255,255,0.98);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .logo img { height: 65px; width: auto; }
+        .logo-text { font-size: 1.6rem; font-weight: 800; color: var(--primary); line-height: 1.2; }
+        .logo-text span { display: block; font-size: 0.85rem; font-weight: 400; color: var(--text-gray); letter-spacing: 2px; text-transform: uppercase; }
+        
+        nav { display: flex; gap: 30px; align-items: center; }
+        nav a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; }
+        .btn-apply { background: var(--accent); color: white !important; padding: 12px 25px; border-radius: 4px; }
+        
+        .side-widget {
+            position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+            z-index: 9999; display: flex; flex-direction: column; gap: 2px;
+        }
+        .widget-item {
+            background: var(--primary); color: white; padding: 20px 10px;
+            writing-mode: vertical-rl; text-orientation: mixed; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;
+            border-radius: 4px 0 0 4px; box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease; text-decoration: none; width: 45px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .widget-item:hover { width: 60px; background: var(--primary-dark); }
+        .widget-item.red { background: var(--accent); }
+        .widget-item.red:hover { background: #c0181d; }
+        .widget-item i { font-size: 1.2rem; margin-bottom: 10px; writing-mode: horizontal-tb; }
+        
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 100px 5%; text-align: center; color: white; position: relative; overflow: hidden;
+        }
+        .page-hero h1 { font-size: 3rem; margin-bottom: 20px; }
+        .page-hero p { font-size: 1.2rem; opacity: 0.95; max-width: 800px; margin: 0 auto; }
+        
+        .content-section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 60px; }
+        .info-content h2 { color: var(--primary); font-size: 2.2rem; margin-bottom: 25px; }
+        .info-content p { color: var(--text-gray); margin-bottom: 20px; font-size: 1.1rem; }
+        .info-box { background: var(--light-bg); padding: 30px; border-radius: 15px; margin-top: 30px; }
+        .info-box h3 { color: var(--primary); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .info-box ul { list-style: none; }
+        .info-box li { padding: 10px 0; border-bottom: 1px solid #ddd; display: flex; align-items: center; gap: 10px; }
+        .info-box li:last-child { border-bottom: none; }
+        .info-box i { color: var(--accent); }
+        
+        .map-container {
+            background: white; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1); height: 100%; min-height: 400px;
+        }
+        .map-container iframe { width: 100%; height: 100%; min-height: 400px; border: none; }
+        
+        .distance-section { background: var(--light-bg); padding: 80px 5%; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { color: var(--primary); font-size: 2.5rem; margin-bottom: 15px; }
+        .distance-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .distance-card {
+            background: white; padding: 40px 30px; border-radius: 15px;
+            text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--accent); transition: all 0.3s;
+        }
+        .distance-card:hover { transform: translateY(-10px); }
+        .distance-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }
+        .distance-card .time { font-size: 2rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+        .distance-card .label { color: var(--text-gray); font-weight: 500; }
+        
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 100px 5%; text-align: center; color: white;
+        }
+        .cta-section h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .cta-section p { font-size: 1.2rem; margin-bottom: 40px; opacity: 0.95; }
+        .btn-cta {
+            display: inline-block; padding: 18px 50px; background: white;
+            color: var(--primary); border-radius: 50px; font-weight: 700;
+            font-size: 1.1rem; text-decoration: none; text-transform: uppercase;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3); transition: all 0.3s;
+        }
+        .btn-cta:hover { transform: translateY(-5px); }
+        
+        footer { background: #1a1a1a; color: #aaa; padding: 60px 5% 30px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 1200px; margin: 0 auto 40px; }
+        .footer-col h3 { color: white; margin-bottom: 20px; font-size: 1.3rem; }
+        .footer-col a { color: #aaa; text-decoration: none; display: block; padding: 8px 0; transition: 0.3s; }
+        .footer-col a:hover { color: white; padding-left: 10px; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid #333; }
+        
+        @media (max-width: 900px) {
+            .side-widget { display: none; }
+            .info-grid { grid-template-columns: 1fr; }
+            .distance-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .distance-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .page-hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="side-widget">
+        <a href="admission.html" class="widget-item red"><i class="fas fa-edit"></i> Admission</a>
+        <a href="chat.html" class="widget-item"><i class="fas fa-comments"></i> Student Chat</a>
+        <a href="contact.html" class="widget-item"><i class="fas fa-phone-alt"></i> Contact Us</a>
+    </div>
+    
+    <div class="utility-bar">
+        <a href="tel:8125444777"><i class="fas fa-phone"></i> 8125-444-777</a>
+        <a href="mailto:admissions@holyfaith.edu.in"><i class="fas fa-envelope"></i> admissions@holyfaith.edu.in</a>
+    </div>
+    
+    <header>
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Holy Faith College">
+            <div class="logo-text">
+                HOLY FAITH
+                <span>GROUP OF INSTITUTIONS</span>
+            </div>
+        </a>
+        <nav>
+            <a href="about.html">About Us</a>
+            <a href="facilities.html">Facilities</a>
+            <a href="faculty.html">Faculty</a>
+            <a href="campus-life.html">Campus Life</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="blog.html">Blog</a>
+            <a href="placements.html">Placements</a>
+            <a href="contact.html">Contact</a>
+            <a href="admission.html" class="btn-apply">Apply Now</a>
+        </nav>
+    </header>
+    
+    <section class="page-hero">
+        <h1>Nursing College in NAD Junction</h1>
+        <p>20 minutes from NAD Junction, Visakhapatnam. Easy connectivity via multiple transport options to Holy Faith College of Nursing and Physiotherapy.</p>
+    </section>
+    
+    <section class="content-section">
+        <div class="info-grid">
+            <div class="info-content">
+                <h2>Best Nursing College Near NAD Junction</h2>
+                <p>NAD Junction is well-connected to Holy Faith College via buses and metro. Just 20 minutes away, it's a convenient location for students seeking quality healthcare education.</p>
+                <p>We offer B.Sc Nursing, GNM, BPT, and B.Sc MLT courses with excellent infrastructure and 95% placement rate. Multiple transport options make commuting easy from NAD Junction.</p>
+                <div class="info-box">
+                    <h3><i class="fas fa-route"></i> How to Reach from NAD Junction</h3>
+                    <ul>
+                        <li><i class="fas fa-bus"></i> <strong>By Bus:</strong> Routes 15, 18, 22 towards Marripalem</li>
+                        <li><i class="fas fa-car"></i> <strong>By Car/Auto:</strong> 20 minutes via NAD Road</li>
+                        <li><i class="fas fa-clock"></i> <strong>Travel Time:</strong> 15-25 minutes</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3800.0!2d83.2!3d17.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDQyJzAwLjAiTiA4M8KwMTInMDAuMCJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+    
+    <section class="distance-section">
+        <div class="section-title">
+            <h2>Travel Time from NAD Junction</h2>
+            <p>Multiple transport options available</p>
+        </div>
+        <div class="distance-grid">
+            <div class="distance-card">
+                <i class="fas fa-bus"></i>
+                <div class="time">20 min</div>
+                <div class="label">By Bus</div>
+            </div>
+            <div class="distance-card">
+                <i class="fas fa-car"></i>
+                <div class="time">20 minutes</div>
+                <div class="label">By Car</div>
+            </div>
+            <div class="distance-card">
+                <i class="fas fa-road"></i>
+                <div class="time">25 min</div>
+                <div class="label">RTC Complex</div>
+            </div>
+            <div class="distance-card">
+                <i class="fas fa-building"></i>
+                <div class="time">30 min</div>
+                <div class="label">Railway Station</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <h2>Start Your Nursing Career Today</h2>
+        <p>Admissions open for 2026 batch. Limited seats available for NAD Junction students.</p>
+        <a href="admission.html" class="btn-cta">Apply Now</a>
+    </section>
+    
+                    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>Holy Faith College</h3>
+                <p>Leading nursing and physiotherapy college in Visakhapatnam since 2008. Committed to excellence in healthcare education with state-of-the-art facilities, experienced faculty, and industry-leading placement support.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="facilities.html"><i class="fas fa-chevron-right"></i> Facilities</a></li>
+                    <li><a href="faculty.html"><i class="fas fa-chevron-right"></i> Faculty</a></li>
+                    <li><a href="campus-life.html"><i class="fas fa-chevron-right"></i> Campus Life</a></li>
+                    <li><a href="testimonials.html"><i class="fas fa-chevron-right"></i> Testimonials</a></li>
+                    <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                    <li><a href="placements.html"><i class="fas fa-chevron-right"></i> Placements</a></li>
+                    <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Our Courses</h3>
+                <ul>
+                    <li><a href="bpt.html"><i class="fas fa-chevron-right"></i> BPT - Physiotherapy</a></li>
+                    <li><a href="bsc-nursing.html"><i class="fas fa-chevron-right"></i> B.Sc Nursing</a></li>
+                    <li><a href="gnm.html"><i class="fas fa-chevron-right"></i> GNM Nursing</a></li>
+                    <li><a href="bsc-mlt.html"><i class="fas fa-chevron-right"></i> B.Sc MLT</a></li>
+                    <li><a href="admission.html"><i class="fas fa-chevron-right"></i> Admission Process</a></li>
+                    <li><a href="fees.html"><i class="fas fa-chevron-right"></i> Fee Structure</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Information</h3>
+                <ul>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Jyothinagar, Marripalem,<br>Visakhapatnam - 530018,<br>Andhra Pradesh, India</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:8125444777">+91-8125-444-777</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:admissions@holyfaith.edu.in">admissions@holyfaith.edu.in</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span>Mon - Sat: 9:00 AM - 5:00 PM</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; text-align: center;">
+            <p style="margin-bottom: 15px;">&copy; 2026 Holy Faith College of Nursing and Physiotherapy. All Rights Reserved.</p>
+            <div style="margin-bottom: 10px;">
+                <a href="privacy-policy.html" style="color: #666; text-decoration: none; margin: 0 15px; font-size: 0.9rem;">Privacy Policy</a>
+                <a href="terms-conditions.html" style="color: #666; text-decoration: none; margin: 0 15px; font-size: 0.9rem;">Terms & Conditions</a>
+                <a href="cancellation-policy.html" style="color: #666; text-decoration: none; margin: 0 15px; font-size: 0.9rem;">Cancellation Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

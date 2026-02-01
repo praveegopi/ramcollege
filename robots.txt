@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /payment-failed.html
+Disallow: /payment-pages.html
+Disallow: /template-example.html
+
+Sitemap: https://holyfinalbest.vercel.app/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /

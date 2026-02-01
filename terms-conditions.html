@@ -1,0 +1,488 @@
+import os
+import re
+from pathlib import Path
+import shutil
+from datetime import datetime
+
+def extract_sidebar_from_index(index_path):
+    """Extract the complete sidebar HTML and its CSS from index.html"""
+    
+    with open(index_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    # Extract sidebar HTML (the side-widget div)
+    sidebar_pattern = r'(<!-- SIDEBAR - Fixed Right Side -->
+<div class="side-widget">
+    <a href="admission.html" class="widget-item red">
+        <i class="fas fa-edit"></i> Admission
+    </a>
+    <a href="chat.html" class="widget-item">
+        <i class="fas fa-comments"></i> Student Chat
+    </a>
+    <a href="contact.html" class="widget-item">
+        <i class="fas fa-phone-alt"></i> Contact Us
+    </a>
+</div>)'
+    sidebar_match = re.search(sidebar_pattern, content)
+    sidebar_html = sidebar_match.group(1) if sidebar_match else None
+    
+    # Extract sidebar CSS
+    css_pattern = r'(/\* SIDEBAR[\s\S]*?\.widget-item i \{[\s\S]*?\})'
+    css_match = re.search(css_pattern, content)
+    sidebar_css = css_match.group(1) if css_match else None
+    
+    # If CSS pattern didn't work, try broader pattern
+    if not sidebar_css:
+        css_pattern2 = r'(\.side-widget \{[\s\S]*?\.widget-item i \{[\s\S]*?\})'
+        css_match2 = re.search(css_pattern2, content)
+        sidebar_css = css_match2.group(1) if css_match2 else None
+    
+    return {
+        'html': sidebar_html,
+        'css': sidebar_css
+    }
+
+def add_sidebar_to_page(file_path, sidebar_html, sidebar_css, index_path):
+    """Add sidebar to a single page"""
+    
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    # Check if sidebar already exists
+    if 'side-widget' in content:
+        print(f"   ⏭️  Sidebar already exists in {file_path.name}")
+        return False
+    
+    # Add sidebar HTML after <body> tag
+    body_tag_pattern = r'(<body[^>]*>)'
+    body_match = re.search(body_tag_pattern, content, re.IGNORECASE)
+    
+    if body_match:
+        body_tag = body_match.group(1)
+        # Insert sidebar after body tag
+        content = content.replace(body_tag, body_tag + '\n    ' + sidebar_html)
+    
+    # Add sidebar CSS before 
+/* HEADER STANDARDIZATION - Added to fix header consistency */
+.utility-bar {
+    background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 12px 5%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #dee2e6;
+}
+.utility-bar a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.utility-bar a:hover { color: #006a4e; transform: translateY(-2px); }
+
+header {
+    background: rgba(255,255,255,0.98);
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+.logo:hover { transform: scale(1.02); }
+.logo img {
+    height: 65px;
+    width: auto;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+.logo-text {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #006a4e;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+.logo-text span {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #555;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+nav {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+nav a {
+    text-decoration: none;
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 0.95rem;
+    position: relative;
+    padding: 8px 0;
+    transition: color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #006a4e;
+    transition: width 0.3s;
+    border-radius: 2px;
+}
+nav a:hover { color: #006a4e; }
+nav a:hover::after { width: 100%; }
+.btn-apply-header {
+    background: #e31e24;
+    color: white !important;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 8px 20px rgba(227,30,36,0.3);
+    transition: all 0.3s !important;
+}
+.btn-apply-header:hover {
+    background: #c0181d;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 30px rgba(227,30,36,0.4);
+}
+.btn-apply-header::after { display: none !important; }
+.mobile-menu-btn {
+    display: none;
+    background: #006a4e;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+@media (max-width: 1200px) {
+    .mobile-menu-btn { display: block; }
+    nav { 
+        display: none; 
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+    nav.active { display: flex; }
+    nav a { width: 100%; padding: 10px 0; border-bottom: 1px solid #eee; }
+    .btn-apply-header { width: 100%; text-align: center; margin-top: 10px; }
+    header { flex-wrap: wrap; }
+}
+/* END HEADER STANDARDIZATION */
+
+
+        /* FORCE HIDE ANY TOP BAR ABOVE HEADER */
+        html body > *:first-child:not(.side-widget):not(style):not(script):not(link):not(meta):not(title) {
+            position: relative !important;
+        }
+        
+        /* Hide any fixed/sticky bar at top that's not our sidebar */
+        body > div[style*="position: fixed"]:not(.side-widget):not(#corner-credit),
+        body > div[style*="position:sticky"]:not(.side-widget):not(#corner-credit),
+        body > div[class*="top-bar"]:not(.utility-bar),
+        body > div[class*="toolbar"]:not(.utility-bar),
+        body > div[class*="phone-bar"],
+        body > div[class*="contact-bar"] {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+            opacity: 0 !important;
+        }
+        
+        /* Ensure our utility bar is first visible element after sidebar */
+        body > .utility-bar {
+            margin-top: 0 !important;
+            top: 0 !important;
+        }
+    
+</style> tag
+    style_close_pattern = r'(
+/* HEADER STANDARDIZATION - Added to fix header consistency */
+.utility-bar {
+    background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 12px 5%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #dee2e6;
+}
+.utility-bar a {
+    color: #555;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.utility-bar a:hover { color: #006a4e; transform: translateY(-2px); }
+
+header {
+    background: rgba(255,255,255,0.98);
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+.logo:hover { transform: scale(1.02); }
+.logo img {
+    height: 65px;
+    width: auto;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+.logo-text {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #006a4e;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+.logo-text span {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #555;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+nav {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+nav a {
+    text-decoration: none;
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 0.95rem;
+    position: relative;
+    padding: 8px 0;
+    transition: color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #006a4e;
+    transition: width 0.3s;
+    border-radius: 2px;
+}
+nav a:hover { color: #006a4e; }
+nav a:hover::after { width: 100%; }
+.btn-apply-header {
+    background: #e31e24;
+    color: white !important;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 8px 20px rgba(227,30,36,0.3);
+    transition: all 0.3s !important;
+}
+.btn-apply-header:hover {
+    background: #c0181d;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 30px rgba(227,30,36,0.4);
+}
+.btn-apply-header::after { display: none !important; }
+.mobile-menu-btn {
+    display: none;
+    background: #006a4e;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+@media (max-width: 1200px) {
+    .mobile-menu-btn { display: block; }
+    nav { 
+        display: none; 
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+    nav.active { display: flex; }
+    nav a { width: 100%; padding: 10px 0; border-bottom: 1px solid #eee; }
+    .btn-apply-header { width: 100%; text-align: center; margin-top: 10px; }
+    header { flex-wrap: wrap; }
+}
+/* END HEADER STANDARDIZATION */
+
+
+        /* FORCE HIDE ANY TOP BAR ABOVE HEADER */
+        html body > *:first-child:not(.side-widget):not(style):not(script):not(link):not(meta):not(title) {
+            position: relative !important;
+        }
+        
+        /* Hide any fixed/sticky bar at top that's not our sidebar */
+        body > div[style*="position: fixed"]:not(.side-widget):not(#corner-credit),
+        body > div[style*="position:sticky"]:not(.side-widget):not(#corner-credit),
+        body > div[class*="top-bar"]:not(.utility-bar),
+        body > div[class*="toolbar"]:not(.utility-bar),
+        body > div[class*="phone-bar"],
+        body > div[class*="contact-bar"] {
+            display: none !important;
+            visibility: hidden !important;
+            height: 0 !important;
+            opacity: 0 !important;
+        }
+        
+        /* Ensure our utility bar is first visible element after sidebar */
+        body > .utility-bar {
+            margin-top: 0 !important;
+            top: 0 !important;
+        }
+    
+</style>)'
+    style_match = re.search(style_close_pattern, content, re.IGNORECASE)
+    
+    if style_match and sidebar_css:
+        style_close = style_match.group(1)
+        # Insert CSS before closing style tag
+        content = content.replace(style_close, '\n    ' + sidebar_css + '\n    ' + style_close)
+    
+    # Also add responsive CSS for sidebar if not present
+    responsive_css = '''
+        /* Sidebar Responsive */
+        @media (max-width: 1200px) {
+            .side-widget { display: none; }
+        }
+    '''
+    
+    if 'max-width: 1200px' not in content and sidebar_css:
+        # Add responsive CSS before closing style
+        content = content.replace(style_close, '\n    ' + responsive_css + '\n    ' + style_close)
+    
+    # Write back
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(content)
+    
+    return True
+
+def process_all_pages():
+    """Main function to process all HTML pages"""
+    
+    base_dir = Path('.')
+    index_path = base_dir / 'index.html'
+    
+    if not index_path.exists():
+        print("❌ index.html not found!")
+        return
+    
+    print("📖 Extracting sidebar from index.html...")
+    sidebar_components = extract_sidebar_from_index(index_path)
+    
+    if not sidebar_components['html']:
+        print("❌ Could not find sidebar HTML in index.html")
+        return
+    
+    if not sidebar_components['css']:
+        print("⚠️  Could not find sidebar CSS, will add HTML only")
+    
+    print(f"✅ Sidebar HTML extracted: {len(sidebar_components['html'])} characters")
+    if sidebar_components['css']:
+        print(f"✅ Sidebar CSS extracted: {len(sidebar_components['css'])} characters")
+    
+    # Find all HTML files except index.html
+    html_files = list(base_dir.rglob("*.html"))
+    html_files = [f for f in html_files if f.name != 'index.html' and 'backup' not in str(f).lower()]
+    
+    print(f"\n🔧 Found {len(html_files)} pages to process\n")
+    
+    # Create backup directory with timestamp
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    backup_dir = base_dir / f"backup_sidebar_{timestamp}"
+    backup_dir.mkdir(exist_ok=True)
+    print(f"📦 Backup directory: {backup_dir}\n")
+    
+    added_count = 0
+    skipped_count = 0
+    error_count = 0
+    
+    for file_path in html_files:
+        try:
+            print(f"Processing: {file_path}")
+            
+            # Backup original
+            relative_path = file_path.relative_to(base_dir)
+            backup_path = backup_dir / relative_path
+            backup_path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(file_path, backup_path)
+            
+            # Add sidebar
+            success = add_sidebar_to_page(file_path, sidebar_components['html'], 
+                                        sidebar_components['css'], index_path)
+            
+            if success:
+                added_count += 1
+                print(f"   ✅ Sidebar added successfully\n")
+            else:
+                skipped_count += 1
+                print(f"   ⏭️  Skipped\n")
+            
+        except Exception as e:
+            error_count += 1
+            print(f"   ❌ Error: {str(e)}\n")
+    
+    print(f"\n🎉 Done!")
+    print(f"   ✅ Sidebar added: {added_count} pages")
+    print(f"   ⏭️  Already had sidebar: {skipped_count} pages")
+    print(f"   ❌ Errors: {error_count} pages")
+    print(f"   📦 Backup saved in: {backup_dir}")
+
+if __name__ == "__main__":
+    process_all_pages()
